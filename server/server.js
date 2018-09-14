@@ -6,7 +6,7 @@ const http = require('http');
 const  publicPath = path.join(__dirname,'/../public');
 const  app = express();
  const port = process.env.PORT || 3000;
- 
+ const message = require('../server/utils/message'); 
 
  var server = http.createServer(app);
 
@@ -18,19 +18,15 @@ const  app = express();
     //     console.log('New email Created', email);
     // });
   
-      socket.emit('welcomeFromAdmin',{
-            text : "Welcome to chat App"
+      socket.emit('newMessage',message.generateMessage("Admin","Welcome to Chat App"));
+      socket.broadcast.emit('newMessage',message.generateMessage('Admin',"New user Joint to Chat room"));
+      socket.on('Message1',function(mess){
+        socket.broadcast.emit('messageFromAdmin',message.generateMessage('Admin',"New user Joint to Chat room"));
       })
-      socket.broadcast.emit('messageFromAdmin',{
-        text : "New User joined"
-  })
-      socket.on('createMessage',function(mssge){
-         // console.log(mssge);
-        //  io.emit('newMessage',{
-        //     from: mssge.from,
-        //     text : mssge.text,
-        //     createdAt : new Date().getTime()
-        //          })   ;
+      socket.on('createMessage',function(mssge,callback){
+          console.log(mssge);
+         // callback('This from server.');
+         io.emit('newMessage',message.generateMessage(mssge.from,mssge.text));
 
         // socket.broadcast.emit('newMessage',{
         //         from: mssge.from,

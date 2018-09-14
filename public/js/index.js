@@ -1,3 +1,4 @@
+
 var socket  = io();
 socket.on('connect',function(){
 //   console.log('Conntected to Server');
@@ -8,14 +9,23 @@ socket.on('connect',function(){
 //     createdAt : 12343
 //   });
 
+});
+
+
 // socket.emit('createMessage',{
 //   from:"client",
 //   text: 'Hello Everyone',
 //   createdAt :'12344'
+// },function(data){
+//   console.log('Got it.',data)
 // });
 
 socket.on('newMessage',function(message){
   console.log('newMessage',message);
+  var li = $('<li></li>');
+  li.text(`${message.from} : ${message.text}`);
+
+  $('#messList').append(li);
   
 });
 
@@ -39,4 +49,20 @@ socket.on('messageFromAdmin',function(message){
 // });
 
 
+$(document).ready(function(){
+
+
+  $("#message-form").on('submit',function(e){
+    e.preventDefault();
+
+    socket.emit('createMessage',{
+      from:"User",
+      text: $('[name=message]').val()
+      
+    },function(){
+      
+    });
+    
+      
+  });
 });
