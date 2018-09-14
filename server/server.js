@@ -18,13 +18,25 @@ const  app = express();
     //     console.log('New email Created', email);
     // });
   
+      socket.emit('welcomeFromAdmin',{
+            text : "Welcome to chat App"
+      })
+      socket.broadcast.emit('messageFromAdmin',{
+        text : "New User joined"
+  })
       socket.on('createMessage',function(mssge){
          // console.log(mssge);
-         io.emit('newMessage',{
-            from: mssge.from,
-            text : mssge.text,
-            createdAt : new Date().getTime()
-                 })   ;
+        //  io.emit('newMessage',{
+        //     from: mssge.from,
+        //     text : mssge.text,
+        //     createdAt : new Date().getTime()
+        //          })   ;
+
+        // socket.broadcast.emit('newMessage',{
+        //         from: mssge.from,
+        //         text : mssge.text,
+        //         createdAt : new Date().getTime()
+        //              });
 
       });
 
@@ -37,11 +49,11 @@ const  app = express();
 
     
     
-    socket.emit('newMessage',{
-        from:" Sunil",
-        text : "New Message From Sunil",
+    // socket.emit('newMessage',{
+    //     from:" Sunil",
+    //     text : "New Message From Sunil",
         
-      });
+    //   });
 
     // socket.on('disconnect', function(){
     //     console.log('User Disconnected');
