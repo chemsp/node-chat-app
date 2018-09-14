@@ -36,6 +36,9 @@ const  app = express();
 
       });
 
+      socket.on('createLocationMessage',(coords)=>{
+        io.emit('newLocationMessage',message.generateLocationMessage("Admin",coords.longitude,coords.latitude));
+      });
 
     // socket.emit('newEmail',{
     //   from:"Sunil",
