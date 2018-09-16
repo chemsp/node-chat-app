@@ -5,20 +5,32 @@
         <title>
             Chat App
         </title>
+        <link rel="stylesheet" href="/css/styles.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         
         <script src="/js/index.js"></script>
 
     </head>
-    <body>
-        <p>WelCome to Chat app</p>
-        <ol id=messList></ol>
-        <form id="message-form">
-            <input type="text" name="message" placeholder="Message"/>
-         <button>Send</button>
-        </form>
-        <button id="send-location">Send Location</button>
-       
+    <body class="chat">
+        <div class="chat__sidebar">
+            <h3>People</h3>
+            <div id="users"></div>
+        </div>
+        <div class="chat__main">
+                <p>WelCome to Chat app</p>
+                <ol id=messList class="chat__messages"></ol>
+                <div class="chat__footer">
+                        <form id="message-form">
+                                <input type="text" name="message" autofocus autocomplete="off" placeholder="Message"/>
+                             <button>Send</button>
+                            </form>
+                            <button id="send-location" value="Send Location">Send Location</button>                      
+
+                </div>
+                
+
+        </div>
+        
     </body>
 </html>

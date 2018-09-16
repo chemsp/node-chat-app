@@ -27,7 +27,7 @@ const  app = express();
           console.log(mssge);
          // callback('This from server.');
          io.emit('newMessage',message.generateMessage(mssge.from,mssge.text));
-
+          callback();
         // socket.broadcast.emit('newMessage',{
         //         from: mssge.from,
         //         text : mssge.text,
