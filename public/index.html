@@ -10,6 +10,8 @@
         <script src="/socket.io/socket.io.js"></script>
         
         <script src="/js/index.js"></script>
+        <script src="/js/libs/moment.min.js"></script>
+        <script src="/js/libs/mustache.js"></script>
 
     </head>
     <body class="chat">
@@ -18,7 +20,7 @@
             <div id="users"></div>
         </div>
         <div class="chat__main">
-                <p>WelCome to Chat app</p>
+                <!-- <p>WelCome to Chat app</p> -->
                 <ol id=messList class="chat__messages"></ol>
                 <div class="chat__footer">
                         <form id="message-form">
@@ -31,6 +33,28 @@
                 
 
         </div>
-        
+        <script type="text/template" id="message-template">
+           <li class="message">
+                <div class="message__title">
+                    <h4>{{from}}</h4>
+                    <span>{{createdAt}}</span>
+                </div>
+                <div class="message__body">
+                        <p>{{text}}</p>
+                </div>
+           </li>
+        </script>
+
+        <script type="text/template" id="location-message-template">
+            <li class="message">
+                 <div class="message__title">
+                     <h4>{{from}}</h4>
+                     <span>{{createdAt}}</span>
+                 </div>
+                 <div class="message__body">
+                        <a href={{url}} target="_blank"> My Current Location</a>
+                 </div>
+            </li>
+         </script>
     </body>
 </html>
