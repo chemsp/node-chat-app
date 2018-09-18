@@ -22,6 +22,17 @@ socket.on('connect',function(){
 //     createdAt : 12343
 //   });
 
+var params = $.deparam(window  .location.search);
+socket.emit('join',params,function(err){
+ 
+  if(err){
+    window.location.href = '/';
+
+  } else{
+    console.log('No error');
+  }
+});
+
 });
 
 
@@ -32,6 +43,18 @@ socket.on('connect',function(){
 // },function(data){
 //   console.log('Got it.',data)
 // });
+
+socket.on('updatedUsersList',function(userList){
+  var users= $('#users');
+  var ol = $('<ol></ol>');
+ 
+  userList.forEach(ele => {
+    var li = $('<li></li>');
+      li.append(ele);
+      ol.append(li);
+  });
+   users.html(ol); 
+});
 
 socket.on('newMessage',function(message){
   var formattedTime =  moment(message.createdAt).format('h:mm a')
