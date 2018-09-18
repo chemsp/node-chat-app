@@ -48,10 +48,13 @@ const  app = express();
 
       });
       socket.on('createMessage',function(mssge,callback){
-          console.log(mssge);
-         // callback('This from server.');
-         io.emit('newMessage',message.generateMessage(mssge.from,mssge.text));
+        var user = users.getUser(socket.id);
+        if(user && isRealString(mssge.text)){
+          io.to(user.room).emit('newMessage',message.generateMessage(user.name,mssge.text));
           callback();
+        }
+         // callback('This from server.');
+        
         // socket.broadcast.emit('newMessage',{
         //         from: mssge.from,
         //         text : mssge.text,
@@ -61,7 +64,11 @@ const  app = express();
       });
 
       socket.on('createLocationMessage',(coords)=>{
-        io.emit('newLocationMessage',message.generateLocationMessage("Admin",coords.longitude,coords.latitude));
+        var user = users.getUser(socket.id);
+        if(user ){
+          io.to(user.room).emit('newLocationMessage',message.generateLocationMessage(user.name,coords.longitude,coords.latitude));
+  
+        }
       });
 
     // socket.emit('newEmail',{
